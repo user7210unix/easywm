@@ -17,6 +17,7 @@
 typedef struct {
     Window windows[MAX_WINDOWS];
     int count;
+    Bool is_floating[MAX_WINDOWS]; // Track floating state per window
 } Desktop;
 
 typedef enum { LAYOUT_TILE, LAYOUT_FLOAT } Layout;
@@ -30,7 +31,7 @@ Layout current_layout = LAYOUT_TILE;
 int master_width_ratio = 60;
 int focused_window_idx = 0;
 float cpu_usage = 0;
-unsigned long focused_color, normal_color;
+unsigned long bar_color, bar_text_color, focused_color, normal_color;
 
 // Function prototypes
 void switch_desktop(int);
@@ -41,6 +42,7 @@ void manage_window(Window);
 void kill_focused_window(void);
 void move_window_to_desktop(int);
 void update_cpu_usage(void);
+void toggle_floating_window(void);
 
 // Helper functions
 unsigned long hex_to_xcolor(const char *hex) {
@@ -101,7 +103,7 @@ void draw_status_bar() {
     int screen_width = DisplayWidth(display, DefaultScreen(display));
     
     // Clear bar
-    XSetForeground(display, DefaultGC(display, 0), normal_color);
+    XSetForeground(display, DefaultGC(display, 0), bar_color);
     XFillRectangle(display, root, DefaultGC(display, 0), 0, 0, screen_width, BAR_HEIGHT);
 
     // System info
@@ -124,16 +126,17 @@ void draw_status_bar() {
     );
     strcat(status, sysinfo);
 
-    // Draw text
+    // Draw text (centered vertically)
     XftDraw *draw = XftDrawCreate(display, root,
         DefaultVisual(display, 0), DefaultColormap(display, 0));
     
     XftColor color;
     XftColorAllocName(display, DefaultVisual(display, 0),
-        DefaultColormap(display, 0), "white", &color);
+        DefaultColormap(display, 0), BAR_TEXT_COLOR, &color);
     
     XftFont *font = XftFontOpenName(display, 0, FONT);
-    XftDrawStringUtf8(draw, &color, font, 10, BAR_HEIGHT-5, (FcChar8*)status, strlen(status));
+    int text_y = (BAR_HEIGHT - font->ascent + font->descent) / 2;
+    XftDrawStringUtf8(draw, &color, font, 10, text_y, (FcChar8*)status, strlen(status));
     
     XftDrawDestroy(draw);
     XFlush(display);
@@ -145,37 +148,47 @@ void tile_windows() {
 
     int sw = DisplayWidth(display, 0);
     int sh = DisplayHeight(display, 0) - BAR_HEIGHT;
-    int mw = (sw * master_width_ratio) / 100;
 
-    for (int i = 0; i < d->count; i++) {
-        XWindowChanges wc;
-        
-        if (current_layout == LAYOUT_TILE) {
-            if (i == 0) { // Master
-                wc.x = GAP_SIZE;
-                wc.y = BAR_HEIGHT + GAP_SIZE;
-                wc.width = mw - 2*GAP_SIZE;
-                wc.height = sh - 2*GAP_SIZE;
-            } else { // Stack
-                wc.x = mw + GAP_SIZE;
-                wc.y = BAR_HEIGHT + GAP_SIZE + (i-1)*(sh/(d->count-1));
-                wc.width = sw - mw - 2*GAP_SIZE;
-                wc.height = (sh/(d->count-1)) - 2*GAP_SIZE;
+    if (d->count == 1 && current_layout == LAYOUT_TILE) {
+        // Single window: make it fullscreen
+        XMoveResizeWindow(display, d->windows[0], 0, BAR_HEIGHT, sw, sh);
+    } else {
+        // Multiple windows: use master/stack layout
+        int mw = (sw * master_width_ratio) / 100;
+
+        for (int i = 0; i < d->count; i++) {
+            if (d->is_floating[i]) {
+                // Floating windows are not resized
+                continue;
             }
-        } else { // Float
-            wc.x = 0;
-            wc.y = BAR_HEIGHT;
-            wc.width = sw;
-            wc.height = sh;
-        }
 
-        XConfigureWindow(display, d->windows[i], 
-            CWX | CWY | CWWidth | CWHeight, &wc);
+            if (i == 0) { // Master
+                XMoveResizeWindow(display, d->windows[i],
+                    GAP_SIZE, BAR_HEIGHT + GAP_SIZE,
+                    mw - 2 * GAP_SIZE, sh - 2 * GAP_SIZE);
+            } else { // Stack
+                XMoveResizeWindow(display, d->windows[i],
+                    mw + GAP_SIZE, BAR_HEIGHT + GAP_SIZE + (i-1)*(sh/(d->count-1)),
+                    sw - mw - 2 * GAP_SIZE, (sh/(d->count-1)) - 2 * GAP_SIZE);
+            }
+        }
+    }
+
+    // Set borders
+    for (int i = 0; i < d->count; i++) {
         XSetWindowBorder(display, d->windows[i], 
             (i == focused_window_idx) ? focused_color : normal_color);
         XSetWindowBorderWidth(display, d->windows[i], BORDER_SIZE);
     }
     XFlush(display);
+}
+
+void toggle_floating_window() {
+    Desktop *d = &desktops[current_desktop];
+    if (d->count == 0) return;
+
+    d->is_floating[focused_window_idx] = !d->is_floating[focused_window_idx];
+    tile_windows();
 }
 
 void kill_focused_window() {
@@ -241,6 +254,9 @@ void handle_keypress(XKeyEvent *ev) {
             tile_windows();
             draw_status_bar();
             break;
+        case XK_space:
+            toggle_floating_window();
+            break;
         case XK_h: 
             if (master_width_ratio > 10) master_width_ratio -= 5;
             tile_windows();
@@ -260,22 +276,17 @@ void handle_keypress(XKeyEvent *ev) {
     }
 }
 
+
+
 void manage_window(Window w) {
     Desktop *d = &desktops[current_desktop];
     if (d->count >= MAX_WINDOWS) return;
 
-    // Auto-tiling logic
-    if (current_layout == LAYOUT_TILE && d->count > 0) {
-        // Insert after master window
-        for (int i = d->count; i > 1; i--)
-            d->windows[i] = d->windows[i-1];
-        d->windows[1] = w;
-        focused_window_idx = 1;
-    } else {
-        d->windows[d->count] = w;
-        focused_window_idx = d->count;
-    }
+    // Add window to current desktop
+    d->windows[d->count] = w;
+    d->is_floating[d->count] = False; // Default to tiled
     d->count++;
+    focused_window_idx = d->count - 1;
     
     XSelectInput(display, w, StructureNotifyMask);
     tile_windows();
@@ -290,17 +301,23 @@ int main() {
 
     // Initialize state
     root = DefaultRootWindow(display);
+    bar_color = hex_to_xcolor(BAR_COLOR);
+    bar_text_color = hex_to_xcolor(BAR_TEXT_COLOR);
     focused_color = hex_to_xcolor(FOCUSED_COLOR);
     normal_color = hex_to_xcolor(NORMAL_COLOR);
     memset(desktops, 0, sizeof(desktops));
     
     // Set background
     spawn(BACKGROUND_CMD);
-    
+
+    // Ensure keypress events are captured for the root window (global capture)
+    XSelectInput(display, root, KeyPressMask);  // This line captures global key events
+
     // Initial window setup
     XSelectInput(display, root, SubstructureRedirectMask | SubstructureNotifyMask | KeyPressMask);
     XSync(display, False);
 
+    // Now the event loop starts
     XEvent ev;
     while (1) {
         XNextEvent(display, &ev);
@@ -331,3 +348,4 @@ int main() {
     XCloseDisplay(display);
     return 0;
 }
+
