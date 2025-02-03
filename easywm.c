@@ -98,7 +98,7 @@ void update_cpu_usage() {
     }
     fclose(fp);
 }
-
+// status bar 
 void draw_status_bar() {
     int screen_width = DisplayWidth(display, DefaultScreen(display));
     
