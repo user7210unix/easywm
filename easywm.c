@@ -276,21 +276,15 @@ void handle_keypress(XKeyEvent *ev) {
     }
 }
 
-
-
 void manage_window(Window w) {
     Desktop *d = &desktops[current_desktop];
     if (d->count >= MAX_WINDOWS) return;
 
-    // Add window to current desktop
-    d->windows[d->count] = w;
-    d->is_floating[d->count] = False; // Default to tiled
-    d->count++;
-    focused_window_idx = d->count - 1;
-    
-    XSelectInput(display, w, StructureNotifyMask);
+    // Add window
+    d->windows[d->count++] = w;
+    XSelectInput(display, w, StructureNotifyMask | FocusChangeMask | KeyPressMask);
+    XMapWindow(display, w);
     tile_windows();
-    draw_status_bar();
 }
 
 int main() {
@@ -348,4 +342,3 @@ int main() {
     XCloseDisplay(display);
     return 0;
 }
-
