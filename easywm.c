@@ -327,3 +327,7 @@ int main() {
                 break;
         }
     }
+
+    XCloseDisplay(display);
+    return 0;
+}
