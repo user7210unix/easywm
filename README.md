@@ -1,7 +1,7 @@
 
 <div align="center">
 
-# The EASYWM Project
+### 𝙀𝘼𝙎𝙔𝙒𝙈
 Version 0.3 Prototype! Building a Linux Window Manager from scratch | In the picture below you can see the current status of the development. There are still many problems but there is already a significant improvement than version 0.1
 <div align="center">
 
