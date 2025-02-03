@@ -1,17 +1,21 @@
 #pragma once
 
 // Appearance
-#define BORDER_SIZE 2
-#define GAP_SIZE 10
-#define FOCUSED_COLOR "#268bd2"
-#define NORMAL_COLOR "#002b36"
-#define BAR_HEIGHT 24
-#define FONT "monospace-12"
+#define BORDER_SIZE 6
+#define GAP_SIZE 35
+#define BAR_HEIGHT 0
+#define FONT "JetBrainsMono-17"
+
+// Colors
+#define BAR_COLOR "#2E3440"       // Status bar background
+#define BAR_TEXT_COLOR "#ECEFF4"  // Status bar text
+#define FOCUSED_COLOR "#81A1C1"   // Focused window border
+#define NORMAL_COLOR "#4C566A"    // Normal window border
 
 // Keybindings
 #define MOD_KEY Mod1Mask  // Alt key
 #define TERMINAL "st"
-#define DMENU_CMD "dmenu_run -p 'Run:'"
+#define DMENU_CMD "rofi -show run"
 #define BACKGROUND_CMD "feh --bg-fill ~/wallpaper.jpg"
 
 // Workspaces
