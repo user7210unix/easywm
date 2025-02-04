@@ -66,6 +66,7 @@ curl -fsSL https://raw.githubusercontent.com/user7210unix/easywm/main/install.sh
 
 #### 📱 **Applications**
 
- **ALT+q** – KILL  
- **ALT+Return** – ST 
- **ALT+p** – DMENU
+ **ALT+Q** – KILL WINDOW 
+ **ALT+RETURN** – ST 
+ **ALT+P** – DMENU
+ **ALT+SHIFT+P** – KILL SESSION
