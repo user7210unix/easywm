@@ -5,6 +5,17 @@
       <img src="images/banner1.png" align="center" alt="Rice Setup Preview" width="550" style="display: block; margin: 32px auto; border: 2px solid #555; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);">
 </div>
 </div> 
+
+
+<div align="center">
+  <h2 style="font-size: 74px;">
+    <strong> 
+      <a href="https://user7210unix.github.io/easywm-website/" style="text-decoration: none; color: inherit;">
+        𝗘𝗔𝗦𝗬𝗪𝗠 - 𝗪𝗘𝗕𝗦𝗜𝗧𝗘
+      </a> 
+    </strong>
+  </h2>
+</div>
       
 <div align="center">
 
@@ -48,9 +59,9 @@ curl -fsSL https://raw.githubusercontent.com/user7210unix/easywm/main/install.sh
 
 #### 📱 **Applications**
 
-- **ALT+q** – KILL  
-- **ALT+Return** – ST 
-- **ALT+p** – DMENU
+ **ALT+q** – KILL  
+ **ALT+Return** – ST 
+ **ALT+p** – DMENU
 
 
 <h1>
