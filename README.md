@@ -34,16 +34,13 @@ curl -fsSL https://raw.githubusercontent.com/user7210unix/easywm/main/install.sh
 - **Compositor Support** 👨‍🔬 
 - **Support for Menu** 📋 
 
-<div align="center">
-
-
 <h1>
-      <img src="images/image1.png" align="center" alt="Rice Setup Preview" width="550" style="display: block; margin: 32px auto; border: 2px solid #555; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);">
+      <img src="images/image1.png" align="right" alt="Rice Setup Preview" width="550" style="display: block; margin: 32px auto; border: 2px solid #555; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);">
 </div>
 </div> 
 
 
-<div align="center">
+<div align="left">
 
 
 ## 🔑 Key Bindings
@@ -56,7 +53,7 @@ curl -fsSL https://raw.githubusercontent.com/user7210unix/easywm/main/install.sh
 
 
 <h1>
-      <img src="images/image2.png" align="center" alt="Rice Setup Preview" width="550" style="display: block; margin: 32px auto; border: 2px solid #555; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);">
+      <img src="images/image2.png" align="right" alt="Rice Setup Preview" width="550" style="display: block; margin: 32px auto; border: 2px solid #555; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);">
 </div>
 </div> 
 
