@@ -143,4 +143,6 @@ install_dependencies
 add_to_xinitrc
 install_easywm
 
+
+clear
 echo "Installation complete! You can now start the easywm window manager."
