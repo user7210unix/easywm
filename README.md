@@ -23,7 +23,7 @@
 curl -fsSL https://raw.githubusercontent.com/user7210unix/easywm/main/install.sh | bash
 ```
 
-<div align="center">
+<div align="left">
 
   
  ⚙️ 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀
