@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Function to display package names for manual installation
+print_manual_install() {
+    echo "Manual installation required. Install the following packages:"
+    echo " - libX11-devel"
+    echo " - libXft-devel"
+    echo " - libXkbcommon-devel"
+    echo " - libXrandr-devel"
+    echo " - libXcomposite-devel"
+    echo " - libXdamage-devel"
+    echo " - xorg-xprop"
+    echo " - gcc"
+    echo " - make"
+    echo " - xorg-server (or equivalent X server package)"
+    echo " - procps (or equivalent)"
+}
+
 # Function to install dependencies on Ubuntu/Debian
 install_ubuntu_debian() {
     echo "Installing dependencies for Ubuntu/Debian..."
@@ -77,30 +93,28 @@ install_void() {
         procps
 }
 
-# Function to install dependencies on all distros
+# Function to install dependencies based on distribution
 install_dependencies() {
     if [[ -f /etc/os-release ]]; then
-        # Check if we're on Ubuntu/Debian
+        # Check the distribution
         if grep -q -i "ubuntu\|debian" /etc/os-release; then
             install_ubuntu_debian
-        # Check if we're on Arch
         elif grep -q -i "arch" /etc/os-release; then
             install_arch
-        # Check if we're on Fedora
         elif grep -q -i "fedora" /etc/os-release; then
             install_fedora
-        # Check if we're on Gentoo
         elif grep -q -i "gentoo" /etc/os-release; then
             install_gentoo
-        # Check if we're on Void Linux
         elif grep -q -i "void" /etc/os-release; then
             install_void
         else
-            echo "Unknown distro. Please install the dependencies manually."
+            echo "Unknown distribution."
+            print_manual_install
             exit 1
         fi
     else
-        echo "Could not determine the distribution. Please install dependencies manually."
+        echo "Could not determine the distribution."
+        print_manual_install
         exit 1
     fi
 }
