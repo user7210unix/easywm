@@ -98,7 +98,7 @@ void update_cpu_usage() {
     }
     fclose(fp);
 }
-// status bar 
+
 void draw_status_bar() {
     int screen_width = DisplayWidth(display, DefaultScreen(display));
     
@@ -272,6 +272,12 @@ void handle_keypress(XKeyEvent *ev) {
         case XK_k: 
             focused_window_idx = (focused_window_idx - 1 + desktops[current_desktop].count) % desktops[current_desktop].count;
             tile_windows();
+            break;
+        case XK_p: // Quit window manager with ALT+SHIFT+p
+            if (shift) {
+                XCloseDisplay(display);
+                exit(EXIT_SUCCESS);
+            }
             break;
     }
 }
