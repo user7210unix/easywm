@@ -138,11 +138,22 @@ install_easywm() {
     sudo make clean install
 }
 
+# Function to download and install Nerd Font
+install_nerd_font() {
+    echo "Installing Nerd Font (JetBrainsMono)..."
+    mkdir -p ~/.fonts
+    wget -O ~/.fonts/JetBrainsMono.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
+    unzip -o ~/.fonts/JetBrainsMono.zip -d ~/.fonts/
+    rm ~/.fonts/JetBrainsMono.zip
+    fc-cache -vf
+}
+
 # Main script execution
 install_dependencies
 add_to_xinitrc
 install_easywm
+install_nerd_font
 
-
+# Clear the terminal and display completion message
 clear
 echo "Installation complete! You can now start the easywm window manager."
