@@ -41,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/user7210unix/easywm/main/install.sh
 - **Support for Menu** 📋 
 
 
-<div align="left">
+<div align="right">
 
 
 ## 🔑 Key Bindings
