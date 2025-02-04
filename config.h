@@ -1,9 +1,7 @@
-#pragma once
-
 // Appearance
-#define BORDER_SIZE 6
-#define GAP_SIZE 35
-#define BAR_HEIGHT 0
+#define BORDER_SIZE 0
+#define GAP_SIZE 45
+#define BAR_HEIGHT 30  // Height of the bar
 #define FONT "JetBrainsMono-17"
 
 // Colors
