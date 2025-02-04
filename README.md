@@ -17,7 +17,7 @@
 
 <div align="center">
 
-### 𝙄𝙣𝙨𝙩𝙖𝙡𝙡𝙖𝙩𝙞𝙤𝙣 🧘 
+𝙄𝙣𝙨𝙩𝙖𝙡𝙡𝙖𝙩𝙞𝙤𝙣 🧘 
 
 ```
 curl -fsSL https://raw.githubusercontent.com/user7210unix/easywm/main/install.sh | bash
@@ -26,7 +26,7 @@ curl -fsSL https://raw.githubusercontent.com/user7210unix/easywm/main/install.sh
 <div align="center">
 
   
-## ⚙️ Features
+ ⚙️ 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀
 - **Developed from Scratch** ⚙️
 - **Written in C Lang** 🇨 
 - **Uses ST-Terminal as Default** 🖥️ 
