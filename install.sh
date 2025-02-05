@@ -11,6 +11,7 @@ print_manual_install() {
     echo " - libXdamage-devel"
     echo " - xorg-xprop"
     echo " - gcc"
+    echo " - rofi"
     echo " - make"
     echo " - xorg-server (or equivalent X server package)"
     echo " - procps (or equivalent)"
@@ -23,6 +24,7 @@ install_ubuntu_debian() {
     sudo apt install -y \
         libx11-dev \
         libxft-dev \
+        rofi \
         libxkbcommon-dev \
         libxrandr-dev \
         libxcomposite-dev \
@@ -40,6 +42,7 @@ install_arch() {
     sudo pacman -Syu --noconfirm
     sudo pacman -S --noconfirm \
         libx11 \
+        rofi \
         libxft \
         libxkbcommon \
         libxrandr \
@@ -58,6 +61,7 @@ install_fedora() {
     echo "Installing dependencies for Fedora..."
     sudo dnf install -y \
         libX11-devel \
+        rofi \
         libXft-devel \
         libXkbcommon-devel \
         libXrandr-devel \
@@ -73,7 +77,7 @@ install_fedora() {
 # Function to install dependencies on Gentoo
 install_gentoo() {
     echo "Installing dependencies for Gentoo..."
-    sudo emerge --ask x11-libs/libX11 x11-libs/libXft x11-libs/libXkbcommon x11-libs/libXrandr x11-libs/libXcomposite x11-libs/libXdamage x11-apps/xorg-xprop dev-lang/gcc sys-apps/procps
+    sudo emerge --ask x11-libs/libX11 x11-libs/libXft rofi x11-libs/libXkbcommon x11-libs/libXrandr x11-libs/libXcomposite x11-libs/libXdamage x11-apps/xorg-xprop dev-lang/gcc sys-apps/procps
 }
 
 # Function to install dependencies on Void Linux
@@ -82,6 +86,7 @@ install_void() {
     sudo xbps-install -Syu
     sudo xbps-install -y \
         libX11-devel \
+        rofi \
         libXft-devel \
         libXkbcommon-devel \
         libXrandr-devel \
