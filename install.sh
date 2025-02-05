@@ -12,6 +12,7 @@ print_manual_install() {
     echo " - xorg-xprop"
     echo " - gcc"
     echo " - rofi"
+    echo " - picom"
     echo " - make"
     echo " - xorg-server (or equivalent X server package)"
     echo " - procps (or equivalent)"
@@ -25,6 +26,7 @@ install_ubuntu_debian() {
         libx11-dev \
         libxft-dev \
         rofi \
+        picom \
         libxkbcommon-dev \
         libxrandr-dev \
         libxcomposite-dev \
@@ -43,6 +45,7 @@ install_arch() {
     sudo pacman -S --noconfirm \
         libx11 \
         rofi \
+        picom \
         libxft \
         libxkbcommon \
         libxrandr \
@@ -62,6 +65,7 @@ install_fedora() {
     sudo dnf install -y \
         libX11-devel \
         rofi \
+        picom \
         libXft-devel \
         libXkbcommon-devel \
         libXrandr-devel \
@@ -77,7 +81,7 @@ install_fedora() {
 # Function to install dependencies on Gentoo
 install_gentoo() {
     echo "Installing dependencies for Gentoo..."
-    sudo emerge --ask x11-libs/libX11 x11-libs/libXft rofi x11-libs/libXkbcommon x11-libs/libXrandr x11-libs/libXcomposite x11-libs/libXdamage x11-apps/xorg-xprop dev-lang/gcc sys-apps/procps
+    sudo emerge --ask x11-libs/libX11 x11-libs/libXft rofi picom x11-libs/libXkbcommon x11-libs/libXrandr x11-libs/libXcomposite x11-libs/libXdamage x11-apps/xorg-xprop dev-lang/gcc sys-apps/procps
 }
 
 # Function to install dependencies on Void Linux
@@ -87,6 +91,7 @@ install_void() {
     sudo xbps-install -y \
         libX11-devel \
         rofi \
+        picom \
         libXft-devel \
         libXkbcommon-devel \
         libXrandr-devel \
@@ -141,6 +146,29 @@ install_easywm() {
     cd easywm || exit
     echo "Building and installing easywm..."
     sudo make clean install
+    cd ..
+}
+
+# Function to clone, build, and install st-graphics
+install_st_graphics() {
+    echo "Cloning st-graphics repository..."
+    git clone https://github.com/user7210unix/White-DWM.git
+    cd White-DWM/st-graphics || exit
+    echo "Building and installing st-graphics..."
+    sudo make clean install
+    cd ../..
+}
+
+# Function to copy rofi configuration
+copy_rofi_config() {
+    echo "Copying rofi configuration to ~/.config/rofi..."
+    cp -r rofi ~/.config/
+}
+
+# Function to copy picom configuration
+copy_picom_config() {
+    echo "Copying picom configuration to ~/.config/picom..."
+    cp -r picom ~/.config/
 }
 
 # Function to download and install Nerd Font
@@ -157,7 +185,10 @@ install_nerd_font() {
 install_dependencies
 add_to_xinitrc
 install_easywm
+install_st_graphics
 install_nerd_font
+copy_rofi_config
+copy_picom_config
 
 # Clear the terminal and display completion message
 clear
