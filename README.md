@@ -2,7 +2,7 @@
 
 ## ⛔ 𝗧𝗵𝗶𝘀 𝗣𝗿𝗼𝗷𝗲𝗰𝘁 𝗶𝘀 𝗻𝗼𝘄 𝗔𝗿𝗰𝗵𝗶𝘃𝗲𝗱 𝘁𝗵𝗲 𝗠𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝗲𝗱 𝗩𝗲𝗿𝘀𝗶𝗼𝗻 𝗶𝘀 𝗵𝗲𝗿𝗲 ⚠️ 
 
-div align="center">
+<div align="center">
   <h2 style="font-size: 74px;">
     <strong> 
       <a href="https://github.com/user7210unix/SlimWM" style="text-decoration: none; color: inherit;">
