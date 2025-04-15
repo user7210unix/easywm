@@ -5,7 +5,7 @@
 <div align="center">
   <h2 style="font-size: 74px;">
     <strong> 
-      <a href="https://github.com/user7210unix/SlimWM" style="text-decoration: none; color: inherit;">
+      <a href="https://user7210unix.github.io/slimwm-web/index.html" style="text-decoration: none; color: inherit;">
         𝗦𝗟𝗜𝗠𝗪𝗠
       </a> 
     </strong>
