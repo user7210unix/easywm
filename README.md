@@ -1,5 +1,6 @@
 <div align="center">
-## This Project is now Archived the Maintained Version is here https://github.com/user7210unix/SlimWM
+
+     ## 𝗧𝗵𝗶𝘀 𝗣𝗿𝗼𝗷𝗲𝗰𝘁 𝗶𝘀 𝗻𝗼𝘄 𝗔𝗿𝗰𝗵𝗶𝘃𝗲𝗱 𝘁𝗵𝗲 𝗠𝗮𝗶𝗻𝘁𝗮𝗶𝗻𝗲𝗱 𝗩𝗲𝗿𝘀𝗶𝗼𝗻 𝗶𝘀 𝗵𝗲𝗿𝗲 https://github.com/user7210unix/SlimWM
 
 <div align="center">
 
