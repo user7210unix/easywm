@@ -1,4 +1,7 @@
 <div align="center">
+### This Project is now Archived the Maintained Version is here https://github.com/user7210unix/SlimWM
+
+<div align="center">
 
 
 <h1>
